@@ -9,7 +9,7 @@ backend:
  
 frontend:
   phases:
-    preBuild:p
+    preBuild:
       commands:
         - npm install
     build:
