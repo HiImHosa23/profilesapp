@@ -1,29 +1,26 @@
 version: 1
  
-applications:
-  - appRoot: profilesapp
+backend:
+  phases:
+    build:
+      commands:
+        - npm install
+        - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
  
-    backend:
-      phases:
-        build:
-          commands:
-            - npm install
-            - npx ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
+frontend:
+  phases:
+    preBuild:p
+      commands:
+        - npm install
+    build:
+      commands:
+        - npm run build
  
-    frontend:
-      phases:
-        preBuild:
-          commands:
-            - npm install
-        build:
-          commands:
-            - npm run build
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
  
-      artifacts:
-        baseDirectory: dist
-        files:
-          - '**/*'
- 
-      cache:
-        paths:
-          - node_modules/**/*
+  cache:
+    paths:
+      - node_modules/**/*
